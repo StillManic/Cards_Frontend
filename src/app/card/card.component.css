@@ -3,6 +3,6 @@
     position: relative;
 }
 
-div {
-    position: relative;
+img {
+    display: inline-block;
 }

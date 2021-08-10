@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Card, CardService } from '../services/card-service.service';
 
 @Component({
   selector: 'app-card',
@@ -6,42 +7,28 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  constructor() { }
+  front: string = "../assets/images/2D.png";
+  back: string = "../assets/images/revature_back.png";
 
-  @Input("indexX")indexX: number = 1;
-  @Input("indexY")indexY: number = 1;
+  @Input() cardValue: number = 1;
+  @Input() suit: string = 'hearts';
 
-  private _startX: number = 8;
-  private _startY: number = 8;
-  private _offsetX: number = 92;
-  private _offsetY: number = 134;
-  private _x: number = 8;
-  private _y: number = 8;
+  card: Card | null = null;
+  cards: Card[] = [];
 
-  public get startX() {
-    return this._startX;
-  }
-
-  public get startY() {
-    return this._startY;
-  }
-
-  public get offsetX() {
-    return this._offsetX;
-  }
-
-  public get offsetY() {
-    return this._offsetY;
-  }
-
-  public get x() {
-    return (this._offsetX * (this.indexX - 1)) + this._startX;
-  }
-
-  public get y() {
-    return (this._offsetY * (this.indexY - 1)) + this._startY;
+  constructor(private cardService: CardService) {
+    
   }
 
   ngOnInit(): void {
+    console.log(`cardValue=${this.cardValue}, suit=${this.suit}`);
+    this.cardService.getCard(this.cardValue, this.suit).subscribe(card => {
+      console.log(card);
+      this.card = card
+    });
+    this.cardService.getDeck().subscribe(cards => {
+      console.log(cards);
+      this.cards = cards;
+    });
   }
 }

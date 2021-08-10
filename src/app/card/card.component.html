@@ -1,15 +1,7 @@
-<div [style.margin-left.px]="-x" [style.margin-top.px]="-y">
-    <img src="..\assets\images\52Cards.png" class="clip-svg" alt="deck">
-    <svg x="0" y="0" width="0" height="0">
-        <defs>
-            <clipPath id="path">
-                <rect [attr.x]="x" [attr.y]="y" width="82" height="126" rx="6">
-                    <!--initial x,y = 7,7-->
-                    <!--Ace spades x=7, X offset = 92-->
-                    <!--Ace diamonds y=142, Y offset = 134-->
-
-                </rect>
-            </clipPath>
-        </defs>
-    </svg>
+<div *ngIf="card != null">
+    <img class="card" width="163" [src]=card.imagePath alt="Image goes here">
 </div>
+
+<!-- <div *ngFor="let card of cards">
+    <img width="163" src="{{card.imagePath}}" alt="Image goes here">
+</div> -->
