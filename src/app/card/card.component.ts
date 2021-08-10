@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class CardComponent implements OnInit {
   constructor() { }
 
-  indexX: number = 1;
-  indexY: number = 1;
+  @Input("indexX")indexX: number = 1;
+  @Input("indexY")indexY: number = 1;
 
   private _startX: number = 8;
   private _startY: number = 8;
