@@ -1,16 +1,15 @@
-<div>
-<img src="..\assets\images\52Cards.png" class="clip-svg" alt="deck">
-<svg width="0" height="0">
-    <defs>
-        <clipPath id="path">
-            <rect x="7" y="7" width="85" height="127" rx="8">
-                <!--initial x,y = 7,7-->
-                <!--Ace spades x=7, X offset = 92-->
-                <!--Ace diamonds y=142, Y offset = 134-->
+<div [style.margin-left.px]="-x" [style.margin-top.px]="-y">
+    <img src="..\assets\images\52Cards.png" class="clip-svg" alt="deck">
+    <svg x="0" y="0" width="0" height="0">
+        <defs>
+            <clipPath id="path">
+                <rect [attr.x]="x" [attr.y]="y" width="82" height="126" rx="6">
+                    <!--initial x,y = 7,7-->
+                    <!--Ace spades x=7, X offset = 92-->
+                    <!--Ace diamonds y=142, Y offset = 134-->
 
-            </rect>
-        </clipPath>
-    </defs>
-</svg>
-
+                </rect>
+            </clipPath>
+        </defs>
+    </svg>
 </div>
