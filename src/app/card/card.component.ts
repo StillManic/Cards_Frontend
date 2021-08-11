@@ -1,10 +1,31 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { Card, CardService } from '../services/card-service.service';
+
+export interface CardData{
+  state: 'default' | 'flipped';
+}
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css']
+  styleUrls: ['./card.component.css'],
+  animations: [
+    trigger('cardFlip',[
+      state('default', style({
+        transform: 'none'
+      })),
+      state('flipped',style({
+        transform: ' translateX(150%) rotateY(180deg)'
+      })),
+      transition('default => flipped', [
+        animate('300ms')
+      ]),
+      transition('flipped => default', [
+        animate('150ms')
+      ])
+    ])
+  ]
 })
 export class CardComponent implements OnInit {
   front: string = "../assets/images/2D.png";
@@ -15,6 +36,7 @@ export class CardComponent implements OnInit {
 
   card: Card | null = null;
   cards: Card[] = [];
+  data: CardData = {state: 'default'};
 
   constructor(private cardService: CardService) {
     
@@ -26,9 +48,13 @@ export class CardComponent implements OnInit {
       console.log(card);
       this.card = card
     });
-    this.cardService.getDeck().subscribe(cards => {
-      console.log(cards);
-      this.cards = cards;
-    });
+    // this.cardService.getDeck().subscribe(cards => {
+    //   console.log(cards);
+    //   this.cards = cards;
+    // });
+  }
+  flipCard(): void{
+    if (this.data.state === 'default') this.data.state = 'flipped';
+    else this.data.state = 'default';
   }
 }

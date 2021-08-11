@@ -1,0 +1,6 @@
+#sect1 {  
+    height: 650 px;  
+    background-image: url('src\assets\images\table.png');  
+    background-size: 100% ;  
+    background-size: cover;  
+}  
