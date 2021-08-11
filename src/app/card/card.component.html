@@ -1,5 +1,12 @@
-<div *ngIf="card != null">
-    <img class="card" width="163" [src]=card.imagePath alt="Image goes here">
+<div *ngIf="card != null" class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img width="163" [src]="card.image" alt="Front of card">
+        </div>
+        <div class="flip-card-back">
+            <img width="163" src="../assets/images/card_back.png" alt="Back of card">
+        </div>
+    </div>
 </div>
 
 <!-- <div *ngFor="let card of cards">

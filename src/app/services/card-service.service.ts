@@ -6,7 +6,7 @@ export interface Card {
   id: number,
   suit: string,
   value: number,
-  imagePath: string,
+  image: string,
   face: string
 }
 
