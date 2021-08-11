@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
 import { CardService } from './services/card-service.service';
 import { DeckComponent } from './deck/deck.component';
+import { BackgroundComponent } from './background/background.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    DeckComponent
+    DeckComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,6 +26,9 @@ import { DeckComponent } from './deck/deck.component';
   providers: [
     CardService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    BackgroundComponent
+  ]
 })
 export class AppModule { }

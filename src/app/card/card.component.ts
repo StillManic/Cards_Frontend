@@ -4,6 +4,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { Card, CardService } from '../services/card-service.service';
 
+export interface CardData{
+  state: 'default' | 'flipped';
+}
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -17,10 +21,10 @@ import { Card, CardService } from '../services/card-service.service';
         transform: 'translateX(125%) rotateY(180deg)',
       })),
       transition('default => flipped', [
-        animate('400ms')
+        animate('300ms')
       ]),
       transition('flipped => default', [
-        animate('400ms')
+        animate('150ms')
       ])
     ])
   ]
