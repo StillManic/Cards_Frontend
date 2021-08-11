@@ -1,7 +1,6 @@
-#sect1 {  
+.background {
     height: 650px;  
     background-image: url('../../assets/images/table.png');  
     background-size: 100%;  
     background-size: cover;
-    z-index: -100000000;
 }  
