@@ -1,8 +1,10 @@
 .flip-card {
+    position: absolute;
     background-color: transparent;
     width: 163px;
     height: 226px;
     perspective: 1000px;
+    display: inline;
 }
 
 .flip-card-inner {
@@ -12,10 +14,6 @@
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
 }
 
 .flip-card-front, .flip-card-back {
@@ -35,4 +33,12 @@
     background-color: transparent;
     color: black;
     transform: rotateY(180deg);
+}
+
+.hidden {
+    z-index: -1000;
+}
+
+.shown {
+    z-index: 1000;
 }

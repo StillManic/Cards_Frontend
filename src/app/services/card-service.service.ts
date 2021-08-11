@@ -7,7 +7,10 @@ export interface Card {
   suit: string,
   value: number,
   image: string,
-  face: string
+  face: string,
+  state: 'default' | 'flipped',
+  zIndex: number,
+  isPrevious: boolean
 }
 
 @Injectable({
