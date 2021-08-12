@@ -1,6 +1,9 @@
 .background {
-    height: 650px;  
+    /* height: 650px;   */
     background-image: url('../../assets/images/table.png');  
-    background-size: 100%;  
-    background-size: cover;
+    background-size: contain;  
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    height: 1100px;
+    z-index: -1000;
 }  

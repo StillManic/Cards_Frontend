@@ -37,9 +37,9 @@
 }
 
 .hidden {
-    z-index: -1000;
+    z-index: -1;
 }
 
 .shown {
-    z-index: 1000;
+    z-index: 3;
 }
