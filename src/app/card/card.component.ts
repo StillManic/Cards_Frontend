@@ -18,7 +18,7 @@ export interface CardData{
         transform: 'none'
       })),
       state('flipped', style({
-        transform: 'translateX(125%) rotateY(180deg)',
+        transform: 'translateY(-115%) rotateX(180deg)',
       })),
       transition('default => flipped', [
         animate('300ms')

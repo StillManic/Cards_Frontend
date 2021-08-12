@@ -9,6 +9,7 @@ import { CardComponent } from './card/card.component';
 import { CardService } from './services/card-service.service';
 import { DeckComponent } from './deck/deck.component';
 import { BackgroundComponent } from './background/background.component';
+import { CpuDeckComponent } from './cpu-deck/cpu-deck.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BackgroundComponent } from './background/background.component';
     CardComponent,
     DeckComponent,
     BackgroundComponent,
+    CpuDeckComponent,
   ],
   imports: [
     BrowserModule,

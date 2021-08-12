@@ -1,0 +1,7 @@
+div{
+    position: absolute;
+    bottom: 36%; margin-bottom: 0%;
+    right: 20%; margin-right: 0%;
+    z-index: 1;
+    transform: rotateZ(-90deg);   
+}
