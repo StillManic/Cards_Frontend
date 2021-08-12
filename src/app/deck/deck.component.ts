@@ -1,6 +1,8 @@
 import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { Card, CardService } from '../services/card-service.service';
+import { DeckEventService } from '../services/deck-event.service';
 
 @Component({
   selector: 'app-deck',
@@ -8,6 +10,8 @@ import { Card, CardService } from '../services/card-service.service';
   styleUrls: ['./deck.component.css']
 })
 export class DeckComponent implements OnInit {
+  subscription: Subscription;
+
   showNextCard: boolean = false;
   currentCardValue: number = 1;
   currentCardSuit: string = 'hearts';
@@ -15,7 +19,7 @@ export class DeckComponent implements OnInit {
   cards: Card[] = [];
   cardIdx: number = 51;
 
-  constructor(private cardService: CardService) {
+  constructor(private cardService: CardService, public deckEventService: DeckEventService) {
     this.cardService.getDeck().subscribe(cards => {
       for (let i in cards) {
         cards[i].state = "default";
@@ -24,10 +28,16 @@ export class DeckComponent implements OnInit {
       this.cards = cards
       console.log(cards);
     });
+
+    this.subscription = deckEventService.cpuDrawAnnounce.subscribe(card => {
+      console.log(`CPU drew card: ${card.face} of ${card.suit}`);
+    });
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   deckClicked(event: Event): void {
@@ -38,6 +48,9 @@ export class DeckComponent implements OnInit {
       if (card.state === "default") {
         card.state = "flipped";
         card.zIndex = 100;
+
+        this.deckEventService.announcePlayerDraw(card);
+
         if (this.cardIdx < 51) {
           let prevCard = this.cards[this.cardIdx + 1];
           // console.log(`[${this.cardIdx + 1}] previous card: f: ${prevCard.face} s: ${prevCard.suit}`);
