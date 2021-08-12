@@ -20,5 +20,5 @@ export class DeckEventService {
     this.cpuDrawSource.next(card);
   }
 
-  constructor() { }
+  constructor() {}
 }

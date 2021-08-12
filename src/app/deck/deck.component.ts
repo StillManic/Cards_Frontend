@@ -30,7 +30,7 @@ export class DeckComponent implements OnInit {
     });
 
     this.subscription = deckEventService.cpuDrawAnnounce.subscribe(card => {
-      console.log(`CPU drew card: ${card.face} of ${card.suit}`);
+      console.log(`From Deck Component: CPU drew card: ${card.face} of ${card.suit}`);
     });
   }
 

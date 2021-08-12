@@ -16,7 +16,7 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
     super(cardService, deckEventService);
 
     this.subscription = deckEventService.playerDrawAnnounce.subscribe(card => {
-      console.log(`Player drew card: ${card.face} of ${card.suit}`);
+      console.log(`From Cpu-Deck: Player drew card: ${card.face} of ${card.suit}`);
     });
   }
 
@@ -26,8 +26,21 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  draw(): void {
-    this.deckEventService.announceCpuDraw({id: 0, suit: 'spades', value: 1, image: '', face: 'A', state: 'default', zIndex: 0, isPrevious: false});
-  }
+  draw(event: Event): void {
+    if (this.cardIdx < 52 && this.cardIdx > -1) {
+      let card = this.cards[this.cardIdx];
+      if (card.state === "default") {
+        card.state = "flipped";
+        card.zIndex = 100;
 
+        this.deckEventService.announceCpuDraw(card);
+
+        if (this.cardIdx < 51) {
+          let prevCard = this.cards[this.cardIdx + 1];
+          prevCard.zIndex = -this.cardIdx * 100;
+        }
+        this.cardIdx--;
+      }
+    }
+  }
 }
