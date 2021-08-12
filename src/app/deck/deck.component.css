@@ -1,5 +1,6 @@
 div{
-    top: 50%; margin-top: 0%;
-    left: 50%; margin-left: 35%;
+    position: absolute;
+    top: 56%; margin-top: 0%;
+    left: 50%; margin-left: -13.5%;
     
 }
