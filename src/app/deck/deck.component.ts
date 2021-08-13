@@ -2,6 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
+import { CpuDeckComponent } from '../cpu-deck/cpu-deck.component';
 import { Card, CardService } from '../services/card-service.service';
 import { DeckEventService } from '../services/deck-event.service';
 
@@ -26,7 +27,7 @@ export class DeckComponent implements OnInit {
     
     this.cardService.getDeck().subscribe(cards => {
       for (let i in cards) {
-        cards[i].state = "default";
+        cards[i].state = 'default';
         cards[i].zIndex = 0;
       }
       this.cards = cards;
@@ -35,7 +36,7 @@ export class DeckComponent implements OnInit {
     });
 
     this.subscription = deckEventService.cpuDrawAnnounce.subscribe(card => {
-      console.log(`From Deck Component: CPU drew card: ${card.face} of ${card.suit}`);
+      // console.log(`From Deck Component: CPU drew card: ${card.value} of ${card.suit}`);
     });
   }
 
@@ -45,20 +46,24 @@ export class DeckComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  setFromDeck(fromDeck: 'player' | 'cpu') {
+    for (let i in this.cards!) {
+      this.cards[i].fromDeck = fromDeck;
+    }
+  }
+
   deckClicked(event: Event): void {
     if (this.cardIdx < 52 && this.cardIdx > -1) {
       let card = this.cards[this.cardIdx];
-      // console.log(`idx: ${this.cardIdx}`);
-      // console.log(card);
-      if (card.state === "default") {
-        card.state = "flipped";
+      card.fromDeck = 'player';
+      if (card.state === 'default') {
+        card.state = this.deckEventService.inWar ? 'war' : 'flipped';
         card.zIndex = 100;
 
         this.deckEventService.announcePlayerDraw(card);
 
         if (this.cardIdx < 51) {
           let prevCard = this.cards[this.cardIdx + 1];
-          // console.log(`[${this.cardIdx + 1}] previous card: f: ${prevCard.face} s: ${prevCard.suit}`);
           prevCard.zIndex = -this.cardIdx * 100;
         }
         this.cardIdx--;
@@ -71,7 +76,6 @@ export class DeckComponent implements OnInit {
     event.preventDefault();
     if (this.cardIdx >= -1 && this.cardIdx < 51) {
       let prevCard = this.cards[this.cardIdx + 1];
-      // console.log(prevCard);
       if (prevCard.state === "flipped") {
         prevCard.state = "default";
         prevCard.zIndex = 100;
@@ -89,8 +93,12 @@ export class DeckComponent implements OnInit {
   }
 
   addToDiscard(cards: Card[]): void {
-    console.log("player deck");
+    // for (let i in cards) {
+    //   if (cards[i].fromDeck == 'player') cards[i].state = 'd_p_to_c';
+    //   else if (cards[i].fromDeck == 'cpu') cards[i].state = 'd_c_to_c';
+
+    //   console.log(`Discarding ${cards[i].face} of ${cards[i].suit} from ${cards[i].fromDeck} deck with state ${cards[i].state}`);
+    // }
     this.discard = this.discard.concat(cards);
-    console.log(this.discard);
   }
 }

@@ -8,9 +8,10 @@ export interface Card {
   value: number,
   image: string,
   face: string,
-  state: 'default' | 'flipped' | 'discarded' | 'war',
+  state: 'default' | 'flipped' | 'war' | 'd_p_to_p' | 'd_p_to_c' | 'd_c_to_c' | 'd_c_to_p',
   zIndex: number,
-  isPrevious: boolean
+  isPrevious: boolean,
+  fromDeck: 'player' | 'cpu'
 }
 
 @Injectable({

@@ -18,7 +18,7 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
     deckEventService.setCpuDeckComponent(this);
 
     this.subscription = deckEventService.playerDrawAnnounce.subscribe(card => {
-      console.log(`From Cpu-Deck: Player drew card: ${card.face} of ${card.suit}`);
+      // console.log(`From Cpu-Deck: Player drew card: ${card.face} of ${card.suit}`);
       this.draw();
     });
   }
@@ -30,16 +30,21 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
   }
 
   addToCpuDiscard(cards : Card []): void{
-    console.log("cpu deck");
+    // for (let i in cards) {
+    //   if (cards[i].fromDeck == 'player') cards[i].state = 'd_p_to_c';
+    //   else if (cards[i].fromDeck == 'cpu') cards[i].state = 'd_c_to_c';
+
+    //   console.log(`Discarding ${cards[i].face} of ${cards[i].suit} from ${cards[i].fromDeck} deck with state ${cards[i].state}`);
+    // }
     this.discardPile = this.discardPile.concat(cards);
-    console.log(this.discardPile);
   }  
 
   draw(): void {
     if (this.cardIdx < 52 && this.cardIdx > -1) {
       let card = this.cards[this.cardIdx];
-      if (card.state === "default") {
-        card.state = "flipped";
+      card.fromDeck = 'cpu';
+      if (card.state === 'default') {
+        card.state = this.deckEventService.inWar ? 'war' : 'flipped';
         card.zIndex = 100;
 
         this.deckEventService.announceCpuDraw(card);
