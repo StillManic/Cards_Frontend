@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
@@ -18,7 +19,7 @@ export class DeckComponent implements OnInit {
 
   cards: Card[] = [];
   discard: Card[] = [];
-  cardIdx!: number ;
+  cardIdx!: number;
 
   constructor(private cardService: CardService, public deckEventService: DeckEventService) {
     this.deckEventService.setPlayerDeckComponent(this);
@@ -28,8 +29,8 @@ export class DeckComponent implements OnInit {
         cards[i].state = "default";
         cards[i].zIndex = 0;
       }
-      this.cards = cards
-      this.cardIdx = cards.length -1;
+      this.cards = cards;
+      this.cardIdx = cards.length - 1;
       console.log(cards);
     });
 
@@ -87,9 +88,9 @@ export class DeckComponent implements OnInit {
     return this.cards[this.cardIdx];
   }
 
-  addToDiscard(cards : Card []): void{
-    console.log("player deck")
+  addToDiscard(cards: Card[]): void {
+    console.log("player deck");
     this.discard = this.discard.concat(cards);
     console.log(this.discard);
-  }  
+  }
 }

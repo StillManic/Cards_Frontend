@@ -1,5 +1,5 @@
 <div *ngIf="card != null" class="flip-card" [ngStyle]="{'z-index': getZIndex()}">
-    <div class="flip-card-inner" [@cardFlip]="card.state">
+    <div class="flip-card-inner" [@cardFlip]="card.state" [@cardDiscard]="card.state">
         <div class="flip-card-front">
             <img width="163" src="../assets/images/card_back.png" alt="Back of card">
         </div>

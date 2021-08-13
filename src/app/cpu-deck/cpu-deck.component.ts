@@ -11,7 +11,7 @@ import { DeckEventService } from '../services/deck-event.service';
 })
 export class CpuDeckComponent extends DeckComponent implements OnInit {
   subscription: Subscription;
-  discard! : Card[];
+  discardPile: Card[] = [];
 
   constructor(cardService: CardService, deckEventService: DeckEventService) {
     super(cardService, deckEventService);
@@ -31,8 +31,8 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
 
   addToCpuDiscard(cards : Card []): void{
     console.log("cpu deck");
-    this.discard = this.discard.concat(cards);
-    console.log(this.discard);
+    this.discardPile = this.discardPile.concat(cards);
+    console.log(this.discardPile);
   }  
 
   draw(): void {

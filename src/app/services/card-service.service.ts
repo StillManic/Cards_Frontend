@@ -8,7 +8,7 @@ export interface Card {
   value: number,
   image: string,
   face: string,
-  state: 'default' | 'flipped',
+  state: 'default' | 'flipped' | 'discarded' | 'war',
   zIndex: number,
   isPrevious: boolean
 }
