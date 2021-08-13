@@ -17,15 +17,19 @@ export class DeckComponent implements OnInit {
   currentCardSuit: string = 'hearts';
 
   cards: Card[] = [];
-  cardIdx: number = 51;
+  discard: Card[] = [];
+  cardIdx!: number ;
 
   constructor(private cardService: CardService, public deckEventService: DeckEventService) {
+    this.deckEventService.setPlayerDeckComponent(this);
+    
     this.cardService.getDeck().subscribe(cards => {
       for (let i in cards) {
         cards[i].state = "default";
         cards[i].zIndex = 0;
       }
       this.cards = cards
+      this.cardIdx = cards.length -1;
       console.log(cards);
     });
 
@@ -59,6 +63,7 @@ export class DeckComponent implements OnInit {
         this.cardIdx--;
       }
     }
+    this.deckEventService.compareDraw();
   }
 
   deckRightClicked(event: Event): void {
@@ -81,4 +86,10 @@ export class DeckComponent implements OnInit {
   getCurrentCard(): Card {
     return this.cards[this.cardIdx];
   }
+
+  addToDiscard(cards : Card []): void{
+    console.log("player deck")
+    this.discard = this.discard.concat(cards);
+    console.log(this.discard);
+  }  
 }

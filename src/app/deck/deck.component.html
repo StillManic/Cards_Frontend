@@ -1,3 +1,8 @@
 <div class="deck" (click)="deckClicked($event)" (contextmenu)="deckRightClicked($event)">
     <app-card *ngFor="let card of cards" [card]=card></app-card>
+    <div class="discard">
+        <app-card *ngFor="let card of discard" [card]=card></app-card>
+    </div>
 </div>
+
+

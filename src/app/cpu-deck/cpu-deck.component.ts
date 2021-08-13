@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DeckComponent } from '../deck/deck.component';
-import { CardService } from '../services/card-service.service';
+import { Card, CardService } from '../services/card-service.service';
 import { DeckEventService } from '../services/deck-event.service';
 
 @Component({
@@ -11,12 +11,15 @@ import { DeckEventService } from '../services/deck-event.service';
 })
 export class CpuDeckComponent extends DeckComponent implements OnInit {
   subscription: Subscription;
+  discard! : Card[];
 
   constructor(cardService: CardService, deckEventService: DeckEventService) {
     super(cardService, deckEventService);
+    deckEventService.setCpuDeckComponent(this);
 
     this.subscription = deckEventService.playerDrawAnnounce.subscribe(card => {
       console.log(`From Cpu-Deck: Player drew card: ${card.face} of ${card.suit}`);
+      this.draw();
     });
   }
 
@@ -26,7 +29,13 @@ export class CpuDeckComponent extends DeckComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  draw(event: Event): void {
+  addToCpuDiscard(cards : Card []): void{
+    console.log("cpu deck");
+    this.discard = this.discard.concat(cards);
+    console.log(this.discard);
+  }  
+
+  draw(): void {
     if (this.cardIdx < 52 && this.cardIdx > -1) {
       let card = this.cards[this.cardIdx];
       if (card.state === "default") {
