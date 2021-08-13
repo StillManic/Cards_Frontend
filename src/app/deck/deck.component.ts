@@ -92,13 +92,17 @@ export class DeckComponent implements OnInit {
     return this.cards[this.cardIdx];
   }
 
-  addToDiscard(cards: Card[]): void {
-    // for (let i in cards) {
-    //   if (cards[i].fromDeck == 'player') cards[i].state = 'd_p_to_c';
-    //   else if (cards[i].fromDeck == 'cpu') cards[i].state = 'd_c_to_c';
+  // addToDiscard(cards: Card[]): void {
+  //   // for (let i in cards) {
+  //   //   if (cards[i].fromDeck == 'player') cards[i].state = 'd_p_to_c';
+  //   //   else if (cards[i].fromDeck == 'cpu') cards[i].state = 'd_c_to_c';
 
-    //   console.log(`Discarding ${cards[i].face} of ${cards[i].suit} from ${cards[i].fromDeck} deck with state ${cards[i].state}`);
-    // }
-    this.discard = this.discard.concat(cards);
+  //   //   console.log(`Discarding ${cards[i].face} of ${cards[i].suit} from ${cards[i].fromDeck} deck with state ${cards[i].state}`);
+  //   // }
+  //   this.discard = this.discard.concat(cards);
+  // }
+
+  addToDiscard(card: Card) {
+    this.discard.push(card);
   }
 }

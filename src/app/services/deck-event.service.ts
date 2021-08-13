@@ -80,48 +80,64 @@ export class DeckEventService {
     }
   }
 
-  private discardPrevCards() {
-    console.log(`DISCARD PREVIOUS CARDS!!! ${this.prevCards} ${this.prevState}`);
-    if (this.prevCards.length > 0) {
-      // this.prevCards = this.prevCards.concat(this.warDiscard);
-      if (this.prevState == 'playerWon') {
-        for (let card of this.prevCards) {
-          if (card.fromDeck == 'player') card.state = 'd_p_to_p';
-          else if (card.fromDeck == 'cpu') card.state = 'd_c_to_p';
+  private discard(cards: Card[], prevWinner: 'playerWon' | 'cpuWon' | 'war' | undefined, resetPrevCards: boolean = false) {
+    for (let card of cards) {
+      if (prevWinner == 'playerWon') {
+        if (card.fromDeck == 'player') card.state = 'd_p_to_p';
+        else if (card.fromDeck == 'cpu') card.state = 'd_c_to_p';
 
-          console.log(`Discarding ${card.face} of ${card.suit} from ${card.fromDeck} deck with state ${card.state}`);
-        }
+        this.playerDeckComponent.addToDiscard(card);
       }
-      else if (this.prevState == 'cpuWon') {
-        for (let card of this.prevCards) {
-          if (card.fromDeck == 'player') card.state = 'd_p_to_c';
-          else if (card.fromDeck == 'cpu') card.state = 'd_c_to_c';
+      else if (prevWinner == 'cpuWon') {
+        if (card.fromDeck == 'player') card.state = 'd_p_to_c';
+        else if (card.fromDeck == 'cpu') card.state = 'd_c_to_c';
 
-          console.log(`Discarding ${card.face} of ${card.suit} from ${card.fromDeck} deck with state ${card.state}`);
-        }
+        this.CPUDeckComponent.addToCpuDiscard(card);
+      }
+      else if (prevWinner == 'war') {
+        console.log("PREVIOUS WAR!!!!");
       }
     }
+
+    if (resetPrevCards) this.prevCards = [];
   }
 
   private playerWins(cards: Card[]) {
-    console.log("PLAYER WINS");
-    this.playerDeckComponent.addToDiscard(cards);
-    this.discardPrevCards();
-    this.prevState = 'playerWon';
+    console.log(`PLAYER WINS ${cards.length} ${this.prevCards.length}`);
+    for (let card of cards) {
+      console.log(card);
+    }
+
+    for (let card of this.prevCards) {
+      console.log(card);
+    }
+
+    if (this.prevState == 'war') this.discard(this.prevCards, 'playerWon', true);
+    else this.discard(this.prevCards, this.prevState);
     this.prevCards = cards;
+    this.prevState = 'playerWon';
   }
 
   private cpuWins(cards: Card[]) {
-    console.log("CPU WINS");
-    this.CPUDeckComponent.addToCpuDiscard(cards);
-    this.discardPrevCards();
-    this.prevState = 'cpuWon';
+    console.log(`CPU WINS ${cards.length} ${this.prevCards.length}`);
+    for (let card of cards) {
+      console.log(card);
+    }
+
+    for (let card of this.prevCards) {
+      console.log(card);
+    }
+    
+    if (this.prevState == 'war') this.discard(this.prevCards, 'cpuWon', true);
+    else this.discard(this.prevCards, this.prevState);
     this.prevCards = cards;
+    this.prevState = 'cpuWon';
   }
 
   private declareWar(cards: Card[]) {
     console.log("WAR");
-    this.discardPrevCards();
+    this.discard(this.prevCards, this.prevState);
+    this.prevCards = this.prevCards.concat(cards);
     this.prevState = 'war';
     this.inWar = true;
     // this.warDiscard.push(cards[0], cards[1]);
