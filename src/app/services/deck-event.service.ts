@@ -37,11 +37,11 @@ export class DeckEventService {
     this.CPUCard = card;
   }
 
-  setPlayerDeckComponent(playerDeckComponent : DeckComponent){
+  setPlayerDeckComponent(playerDeckComponent : DeckComponent) {
     this.playerDeckComponent = playerDeckComponent;
   }
 
-  setCpuDeckComponent(CpuDeckComponent : CpuDeckComponent){
+  setCpuDeckComponent(CpuDeckComponent : CpuDeckComponent) {
     this.CPUDeckComponent = CpuDeckComponent;
   }
 
